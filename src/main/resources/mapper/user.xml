@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.unlike.redis.dao.UserDao">
+    <resultMap type="User" id="User">
+        <id property="id" column="id"/>
+        <result property="email" column="email"/>
+        <result property="nickname" column="nickname"/>
+        <result property="regDate" column="reg_date"/>
+    </resultMap>
+
+    <select id="selectOne" resultMap="User">
+        SELECT
+            id,
+            email,
+            nickname,
+           	reg_date
+        FROM tbl_user
+        WHERE id = #{id};
+    </select>
+
+    <select id="selectOneByEmail" resultMap="User">
+        SELECT
+            id,
+            email,
+            nickname,
+           	reg_date
+        FROM tbl_user
+        WHERE email = #{email}
+    </select>
+    
+    <insert id="insert">
+        INSERT INTO tbl_user (email, nickname, reg_date, mod_date)
+        VALUES (#{email}, #{nickname}, now(), now());
+    </insert>
+
+</mapper>
